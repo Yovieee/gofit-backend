@@ -83,30 +83,17 @@ class Jadwalpaket extends BaseController
         );
         return $this->respondDeleted($data);
     }
-    public function postAvailableInstructorAndClass()
+    public function postUnavailableInstructors()
     {   
         $data = $this->request->getJSON();
-        return $this->respond([$this->db->query(
+        return $this->respond(
+            $this->db->query(
             'SELECT * FROM instrukturs NATURAL JOIN users
-            WHERE ID_INSTRUKTUR NOT IN (
+            WHERE ID_INSTRUKTUR IN (
                 SELECT ID_INSTRUKTUR FROM jadwal_pakets NATURAL JOIN jadwals
-                WHERE HARI_JADWAL_PAKET = "' . $data->HARI_JADWAL_PAKET . '" AND SESI_JADWAL = "' . $data->SESI_JADWAL . '")
-                ORDER BY RAND();')
-            ->getResultArray(),
-            $this->db->query(
-                'SELECT * FROM kelass')
-            ->getResultArray()], 200);
-    }
-    public function postRetrieveInstructorAndClass()
-    {
-        $data = $this->request->getJSON();
-        return $this->respond([$this->db->query(
-            'SELECT * FROM instrukturs NATURAL JOIN users
-            WHERE ID_INSTRUKTUR = "' . $data->ID_INSTRUKTUR . '";')
-            ->getResultArray()[0],
-            $this->db->query(
-                'SELECT * FROM kelass
-                WHERE ID_KELAS = "' . $data->ID_KELAS . '"')
-            ->getResultArray()[0]], 200);
+                WHERE HARI_JADWAL_PAKET = "' . $data->HARI_JADWAL_PAKET . '" AND SESI_JADWAL = "' . $data->SESI_JADWAL . '"
+                AND IS_DELETED_JADWAL IS NULL AND IS_DELETED_JADWAL_PAKET IS NULL)
+                    ORDER BY RAND();')
+            ->getResultArray(), 200);
     }
 }
