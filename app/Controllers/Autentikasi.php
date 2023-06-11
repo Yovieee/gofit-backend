@@ -23,7 +23,8 @@ class Autentikasi extends BaseController
                 'ID_MEMBER' => $user[0]['ID_MEMBER'],
                 'JABATAN_PEGAWAI' => $user[0]['JABATAN_PEGAWAI']
             ];
-            return $this->respond($user[0], 200)->setCookie('token', JWT::encode($payload, JWT_SECRET, 'HS256'));
+            $user[0]['TOKEN'] = JWT::encode($payload, JWT_SECRET, 'HS256');
+            return $this->respond($user[0], 200)->setCookie('token', JWT::encode($payload, JWT_SECRET, 'HS256'), '86400');
         }
         else
         {

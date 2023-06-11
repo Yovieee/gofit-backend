@@ -12,11 +12,17 @@ class TokenFilter implements FilterInterface
 {
     public function before(RequestInterface $request, $arguments = null)
     {
-        if (!$request->is('options'))
-        { 
-            $cookie = $request->getCookie();
-            JWT::decode($cookie['token'], new Key(JWT_SECRET, 'HS256'));
-        }
+        // if (!$request->is('options') & !$request->is('get'))
+        // { 
+        //     $cookie = $request->getCookie();
+        //     if (isset($cookie['token'])) {
+        //         JWT::decode($cookie['token'], new Key(JWT_SECRET, 'HS256'));
+        //     }
+        //     else
+        //     {
+        //         JWT::decode($request->getJSON()->TOKEN, new Key(JWT_SECRET, 'HS256'));
+        //     }
+        // }
     }
 
     public function after(RequestInterface $request, ResponseInterface $response, $arguments = null)

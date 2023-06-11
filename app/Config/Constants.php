@@ -93,6 +93,6 @@ define('EVENT_PRIORITY_NORMAL', 100);
  */
 define('EVENT_PRIORITY_HIGH', 10);
 
-define('FRONTEND_DOMAIN', 'http://localhost:9000');
+define('FRONTEND_DOMAIN', 'http://localhost:3000');
 
 define('JWT_SECRET', 'secret_200710909');
