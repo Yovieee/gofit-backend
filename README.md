@@ -1,3 +1,4 @@
+# Database ada di file database.sql
 # CodeIgniter 4 Application Starter
 
 ## What is CodeIgniter?
